@@ -7,30 +7,35 @@ const winston = require('winston');
 const { response } = require("express");
 
 const app = express();
-const port = 4000;
+const port = 3010;
 
 app.use(cors())
-// enable parsing application/json
+    // enable parsing application/json
 app.use(express.json());
 app.use(express.urlencoded())
 
 const logger = winston.createLogger({
     transports: [
-      new winston.transports.Console(),
-      new winston.transports.File({ filename: 'combined.log' })
+        new winston.transports.Console(),
+        new winston.transports.File({ filename: 'combined.log' })
     ]
-  });
+});
 
-app.post('/checkout', (req, res) => {
-    const accessKey = "$2a$08$emszZbE/rZSiTMPkEEJkYOOMDfl.ZX3sUsUi9/Uq/qp89l0ni9feC"
+app.post('/encrypt', (req, res) => {
+    /* const accessKey = "$2a$08$emszZbE/rZSiTMPkEEJkYOOMDfl.ZX3sUsUi9/Uq/qp89l0ni9feC"
     const IVKey = "RC72TVfwdKZJNDhM";
     const secretKey = "Bp2mrJMzP3x9XD6R";
+    const algorithm = "aes-256-cbc"; */
+    const accessKey = req.body.access_key
+    const IVKey = req.body.iv_key;
+    const secretKey = req.body.secret_key;
     const algorithm = "aes-256-cbc";
+
 
     // get the request body
     const requestBody = req.body;
     logger.info(`CHECKOUT [Data]: ${JSON.stringify(req.body)}`);
-    
+
     let encryption = new Encryption(IVKey, secretKey, algorithm)
 
     const payload = JSON
@@ -40,8 +45,7 @@ app.post('/checkout', (req, res) => {
     // return a JSON response
     res.json({
         encrypted_payload: encryption.encrypt(payload),
-        accessKey,
-        countryCode: requestBody.countryCode
+        access_key: accessKey
     });
 });
 const handleRedirect = (message) => (req, res) => {
