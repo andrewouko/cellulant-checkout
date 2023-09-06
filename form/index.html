@@ -46,7 +46,7 @@
     <script>
         window.onload = function(){
             Object.keys(checkout_payload).forEach(key => {
-                if(key === 'modal'){
+                if(key === 'modal' || key === 'prefillMsisdn'){
                     document.querySelector('form').innerHTML += `
                         <label for="${key}">${key}: </label>
                         <input type="checkbox" id="${key}" name="${key}" value="${checkout_payload[key]}" />

@@ -22,9 +22,9 @@ const logger = winston.createLogger({
   });
 
 app.post('/checkout', (req, res) => {
-    const accessKey = "$2a$08$emszZbE/rZSiTMPkEEJkYOOMDfl.ZX3sUsUi9/Uq/qp89l0ni9feC"
-    const IVKey = "RC72TVfwdKZJNDhM";
-    const secretKey = "Bp2mrJMzP3x9XD6R";
+    const accessKey = "$2a$08$53awffHaNz4a3DakpQt5HeqWd0Y25zCWM9WR2VVY8OicWPtyIFNkW"
+    const IVKey = "grmyQXJMGpTzhwRj";
+    const secretKey = "9WR8rXGTKNMz74bn";
     const algorithm = "aes-256-cbc";
 
     // get the request body
